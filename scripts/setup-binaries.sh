@@ -2,20 +2,32 @@
 
 set -e
 
-unameOut="$(uname -s)"
-case "${unameOut}" in
-    Linux*)     AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m-host/releases/download/v0.0.27/ad4m-linux-x64;;
-    Darwin*)    AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m-host/releases/download/v0.0.27/ad4m-macos-x64;;
-    *)          echo "Machine is not supported: ${unameOut}" && exit 1;;
-esac
+echo "Start to run ad4m."
 
-wget -O ad4m $AD4M_HOST_BINARY
+# only run if ad4m binary is not exist
+if [ ! -f ./ad4m ]; then
+    echo "Download ad4m binary."
+    unameOut="$(uname -s)"
 
-chmod 755 ad4m
+    case "${unameOut}" in
+        Linux*)     AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m-host/releases/download/v0.0.27/ad4m-linux-x64;;
+        Darwin*)    AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m-host/releases/download/v0.0.27/ad4m-macos-x64;;
+        *)          echo "Machine is not supported: ${unameOut}" && exit 1;;
+    esac
 
-./ad4m init
+    wget -O ad4m $AD4M_HOST_BINARY
+    chmod 755 ad4m
+fi
+
+# only run init if holochain binary is not exist
+if [ ! -f $HOME/.ad4m/binary/holochain ]; then
+    echo "Init ad4m."
+    ./ad4m init
+fi
 
 ADMIN_TOKEN=$(uuidgen)
-echo $ADMIN_TOKEN
-./ad4m serve --reqCredential $ADMIN_TOKEN
+PORT=12000
+echo "Serve ad4m, port: $PORT, credential: $ADMIN_TOKEN"
+
+./ad4m serve --reqCredential $ADMIN_TOKEN --port $PORT
 
