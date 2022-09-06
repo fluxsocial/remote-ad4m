@@ -14,4 +14,6 @@ RUN ./ad4m init
 
 COPY scripts/ad4m-serve.sh ad4m-serve.sh
 
+EXPOSE 12000
+
 ENTRYPOINT [ "./ad4m-serve.sh" ]
