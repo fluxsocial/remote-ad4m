@@ -12,6 +12,9 @@ RUN wget -O ad4m https://github.com/perspect3vism/ad4m-host/releases/download/v0
 RUN chmod 755 ad4m
 RUN ./ad4m init
 
+RUN wget http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+RUN dpkg -i libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+
 COPY scripts/ad4m-serve.sh ad4m-serve.sh
 
 EXPOSE 12000

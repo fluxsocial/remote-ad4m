@@ -10,8 +10,8 @@ if [ ! -f ./ad4m ]; then
     unameOut="$(uname -s)"
 
     case "${unameOut}" in
-        Linux*)     AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m-host/releases/download/v0.0.27/ad4m-linux-x64;;
-        Darwin*)    AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m-host/releases/download/v0.0.27/ad4m-macos-x64;;
+        Linux*)     AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m-host/releases/download/v0.0.29-hotfix4/ad4m-linux-x64;;
+        Darwin*)    AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m-host/releases/download/v0.0.29-hotfix4/ad4m-macos-x64;;
         *)          echo "Machine is not supported: ${unameOut}" && exit 1;;
     esac
 
@@ -20,12 +20,17 @@ if [ ! -f ./ad4m ]; then
 fi
 
 # only run init if holochain binary is not exist
-if [ ! -f $HOME/.ad4m/binary/holochain ]; then
+if [ ! -f ~/.ad4m/binary/holochain ]; then
     echo "Init ad4m."
     ./ad4m init
 fi
 
-ADMIN_TOKEN=$(uuidgen)
+if [ ! -f ~/.ad4m/admin-token ]; then
+    echo "generate token"
+    echo $(uuidgen) > ~/.ad4m/admin-token
+fi
+
+ADMIN_TOKEN=`cat ~/.ad4m/admin-token`
 PORT=12000
 echo "Serve ad4m, port: $PORT, credential: $ADMIN_TOKEN"
 
