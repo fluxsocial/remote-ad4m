@@ -8,7 +8,7 @@ RUN  apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 RUN echo "Download ad4m."
-RUN wget -O ad4m https://github.com/perspect3vism/ad4m-host/releases/download/v0.0.31/ad4m-linux-x64
+RUN wget -O ad4m https://github.com/perspect3vism/ad4m/releases/download/v0.2.14/ad4m-linux-0.2.14-x64
 RUN chmod 755 ad4m
 RUN ./ad4m init
 
