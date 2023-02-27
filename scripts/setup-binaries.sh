@@ -10,8 +10,8 @@ if [ ! -f ./ad4m ]; then
     unameOut="$(uname -s)"
 
     case "${unameOut}" in
-        Linux*)     AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m/releases/download/v0.2.15/ad4m-linux-0.2.15-x64;;
-        Darwin*)    AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m/releases/download/v0.2.15/ad4m-macos-0.2.15-x64;;
+        Linux*)     AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m/releases/download/v0.2.16/ad4m-linux-0.2.16-x64;;
+        Darwin*)    AD4M_HOST_BINARY=https://github.com/perspect3vism/ad4m/releases/download/v0.2.16/ad4m-macos-0.2.16-x64;;
         *)          echo "Machine is not supported: ${unameOut}" && exit 1;;
     esac
 
